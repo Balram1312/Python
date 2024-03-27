@@ -1,0 +1,23 @@
+import socket
+
+def print_pdf_to_printer(pdf_file_path, printer_ip, printer_port):
+    # Read the PDF file as binary
+    with open(pdf_file_path, 'rb') as file:
+        pdf_data = file.read()
+
+    # Establish a connection to the printer
+    printer_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    printer_socket.connect((printer_ip, printer_port))
+
+    # Send the PDF data to the printer
+    printer_socket.sendall(pdf_data)
+
+    # Close the connection
+    printer_socket.close()
+
+# Example usage
+pdf_file_path = 'example.pdf'  # Replace with the path to your PDF file
+printer_ip = '192.168.1.100'  # Replace with the IP address of your printer
+printer_port = 9100  # Replace with the port of your printer (usually 9100 for raw printing)
+
+print_pdf_to_printer(pdf_file_path, printer_ip, printer_port)
